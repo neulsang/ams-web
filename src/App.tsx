@@ -1,38 +1,23 @@
-import React, { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import React from 'react';
+import { Button } from '@mui/material';
+
 import './App.css';
+import Slider from '@mui/material/Slider';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
       <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
+        <Button variant="contained">Hello World</Button>
         <button
-          onClick={() => setCount(_count => _count + 1)}
-          onKeyDown={e => {
-            if (e.key === 'Enyer') setCount(_count => _count + 1);
-          }}
           type="button"
+          className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3"
         >
-          count is {count}
+          ...
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <Slider defaultValue={30} />
+        <Slider defaultValue={30} className="text-teal-600" />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   );
 }
