@@ -1,8 +1,8 @@
-import LoginContainer from '@containers/auth/login/LoginContainer';
-import React from 'react';
+import LoginContainer from '@containers/auth/login/LoginContainer'
+import React from 'react'
 
 function LoginPage() {
-  return <LoginContainer />;
+  return <LoginContainer />
 }
 
-export default LoginPage;
+export default LoginPage
