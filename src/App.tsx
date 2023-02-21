@@ -6,6 +6,7 @@ import { grey, yellow } from '@mui/material/colors'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ROTUE_PATHS from './utils/constants/routerPaths'
 import { ClimbingBoxLoader } from 'react-spinners'
+import BaseLayout from '@pages/auth/layout/baseLayout/BaseLayout'
 
 // auth
 const LoginPage = React.lazy(() => import('@pages/auth/login/LoginPage'))
@@ -47,12 +48,11 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <Container maxWidth='xl' className='px-0 sm:px-2'>
+        <Container maxWidth={false} disableGutters>
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route index path='/' element={<LoginPage />}></Route>
-              <Route path='/auth'>
-                <Route index path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />}></Route>
+              <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />}></Route>
+              <Route path='/' element={<BaseLayout />}>
                 <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />}></Route>
               </Route>
             </Routes>

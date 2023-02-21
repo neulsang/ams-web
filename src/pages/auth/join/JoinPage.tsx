@@ -1,7 +1,10 @@
+import JoinContainer from '@containers/auth/join/JoinContainer'
 import React from 'react'
 
 const JoinPage = () => {
-  return <div>JoinPage</div>
+  return (
+    <JoinContainer/>
+  )
 }
 
 export default JoinPage

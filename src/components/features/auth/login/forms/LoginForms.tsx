@@ -12,13 +12,13 @@ const LoginForms = () => {
       <Grid item className='w-full border-gray-300 px-3 sm:w-auto sm:border sm:p-20'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name='userId'
+            name='id'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                error={!!errors.userId}
-                helperText={errors.userId?.message}
+                error={!!errors.id}
+                helperText={errors.id?.message}
                 autoFocus
                 fullWidth
                 placeholder='아이디를 입력하세요.'

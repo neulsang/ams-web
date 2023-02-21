@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import schema from './schema'
 
-const useLoginForms = () => {
+const useJoinForms = () => {
   const {
     control,
     handleSubmit,
@@ -12,6 +12,10 @@ const useLoginForms = () => {
     defaultValues: {
       id: '',
       password: '',
+      name: '',
+      birthDate: null,
+      gender: '', //TODO: 남여?
+      qna: '', //질문과 답변이라 값이 하나 더 있어야함.
     },
     resolver: yupResolver(schema),
   })
@@ -25,4 +29,4 @@ const useLoginForms = () => {
   }
 }
 
-export default useLoginForms
+export default useJoinForms
