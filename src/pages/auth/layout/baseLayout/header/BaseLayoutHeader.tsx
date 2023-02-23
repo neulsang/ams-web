@@ -5,11 +5,12 @@ import MoreIcon from '@mui/icons-material/MoreVert'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useBaseLayoutHeader } from './data'
 import BaseLayoutDrawer from './drawer/BaseLayoutDrawer'
-
+import { Link } from 'react-router-dom'
+import ROTUE_PATHS from '@libs/constants/routerPaths'
 
 export const BaseLayoutHeader = () => {
   const {
-    isShowDrawer, 
+    isShowDrawer,
     setIsShowDrawer,
     menuId,
     handleProfileMenuOpen,
@@ -33,13 +34,8 @@ export const BaseLayoutHeader = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant='h6'
-            noWrap
-            component='div'
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            AMS
+          <Typography variant='h6' noWrap component='div'>
+            <Link to={ROTUE_PATHS.ROOT}>AMS</Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
@@ -71,7 +67,7 @@ export const BaseLayoutHeader = () => {
         </Toolbar>
       </AppBar>
 
-      <BaseLayoutDrawer open={isShowDrawer} setOpen={setIsShowDrawer}/>
+      <BaseLayoutDrawer open={isShowDrawer} setOpen={setIsShowDrawer} />
       {renderMobileMenu}
       {renderMenu}
     </Box>

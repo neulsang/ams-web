@@ -6,9 +6,12 @@ import DatePickerHookFormProps from '@atoms/datePicker/datePickerHookForm'
 import 'dayjs/locale/ko'
 import RadioHookForm from '@components/atoms/radio/RadioHookForm'
 import SelectHookForm from '@components/atoms/select/TextFieldHookForm'
+import { useNavigate } from 'react-router-dom'
+import ROTUE_PATHS from '@libs/constants/routerPaths'
 
 const JoinForm = () => {
   const { handleSubmit, onSubmit, control, errors } = useJoinForms()
+  const navigate = useNavigate()
 
   return (
     <>
@@ -161,9 +164,19 @@ const JoinForm = () => {
           </Grid>
 
           <Grid item xs={12} md={6.5}>
-            <Grid container alignItems='center' justifyContent='center' px={3} py={1.5}>
-              <Button variant='contained' className='my-5 w-64 py-4' type='submit'>
+            <Grid container alignItems='center' justifyContent='center' columnGap={4}>
+              <Button variant='contained' className='my-5 w-40 py-4' type='submit'>
                 <Typography fontSize='body1'>회원가입</Typography>
+              </Button>
+
+              <Button
+                variant='contained'
+                className='my-5 w-40 py-4'
+                type='button'
+                color='secondary'
+                onClick={() => navigate(ROTUE_PATHS.ROOT)}
+              >
+                <Typography fontSize='body1'>취소</Typography>
               </Button>
             </Grid>
           </Grid>

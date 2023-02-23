@@ -51,9 +51,10 @@ function App() {
         <Container maxWidth={false} disableGutters>
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />}></Route>
               <Route path='/' element={<BaseLayout />}>
-                <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />}></Route>
+                <Route index path='/' element={<LoginPage />} />
+                <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />} />
+                <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />} />
               </Route>
             </Routes>
           </Suspense>

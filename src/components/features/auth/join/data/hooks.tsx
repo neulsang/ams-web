@@ -18,7 +18,7 @@ const useJoinForms = () => {
       passwordCheck: '',
       name: '',
       email: '',
-      birthDate: dayjs('2022-04-07').format('YYYY-MM-DD'),
+      birthDate: dayjs(new Date()).format('YYYY-MM-DD'),
       gender: GENDER_RADIO_DATAS[0].value,
       qnaQuestion: QNA_QUESTION_DATAS[0].value,
       qnaAnswer: '',
