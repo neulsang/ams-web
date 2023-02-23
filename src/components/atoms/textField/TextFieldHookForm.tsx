@@ -3,17 +3,23 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 import { TextFieldHookFormProps } from './data'
 
-const TextFieldHookForm = ({ control, error, placeholder }: TextFieldHookFormProps) => {
+const TextFieldHookForm = ({
+  control,
+  name,
+  error,
+  placeholder,
+  type = 'text',
+}: TextFieldHookFormProps) => {
   return (
     <Controller
-      name='id'
+      name={name}
       control={control}
       render={({ field }) => (
         <TextField
+          type={type}
           {...field}
           error={!!error}
           helperText={error?.message}
-          autoFocus
           fullWidth
           placeholder={placeholder}
           inputProps={{

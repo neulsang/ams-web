@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react'
 import Container from '@mui/material/Container'
 
-import { createTheme, Grid, ThemeProvider, Typography, useTheme } from '@mui/material'
+import { createTheme, Grid, ThemeProvider, useTheme } from '@mui/material'
 import { grey, yellow } from '@mui/material/colors'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import ROTUE_PATHS from './utils/constants/routerPaths'
+import ROTUE_PATHS from './libs/constants/routerPaths'
 import { ClimbingBoxLoader } from 'react-spinners'
 import BaseLayout from '@pages/auth/layout/baseLayout/BaseLayout'
 
