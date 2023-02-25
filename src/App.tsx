@@ -1,25 +1,66 @@
-import React from 'react';
-import { Button } from '@mui/material';
+import React, { Suspense } from 'react'
+import Container from '@mui/material/Container'
 
-import './App.css';
-import Slider from '@mui/material/Slider';
+import { createTheme, Grid, ThemeProvider, Typography, useTheme } from '@mui/material'
+import { grey, yellow } from '@mui/material/colors'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ROTUE_PATHS from './utils/constants/routerPaths'
+import { ClimbingBoxLoader } from 'react-spinners'
+import BaseLayout from '@pages/auth/layout/baseLayout/BaseLayout'
 
-function App() {
+// auth
+const LoginPage = React.lazy(() => import('@pages/auth/login/LoginPage'))
+const JoinPage = React.lazy(() => import('@pages/auth/join/JoinPage'))
+
+const Loader = () => {
+  const theme = useTheme()
   return (
-    <div className="App">
-      <div>
-        <Button variant="contained">Hello World</Button>
-        <button
-          type="button"
-          className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3"
-        >
-          ...
-        </button>
-        <Slider defaultValue={30} />
-        <Slider defaultValue={30} className="text-teal-600" />
-      </div>
-    </div>
-  );
+    <Grid
+      container
+      sx={{
+        height: '100dvh',
+        width: '100wv',
+      }}
+      alignItems='center'
+      justifyContent='center'
+    >
+      <Grid item>
+        <ClimbingBoxLoader color={theme.palette.primary.main} size={50} />
+      </Grid>
+    </Grid>
+  )
 }
 
-export default App;
+function App() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: yellow[500],
+        light: yellow[400],
+        dark: yellow[600],
+      },
+      secondary: {
+        main: grey[600],
+      },
+    },
+  })
+
+  return (
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Container maxWidth={false} disableGutters>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />}></Route>
+              <Route path='/' element={<BaseLayout />}>
+                <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />}></Route>
+              </Route>
+            </Routes>
+          </Suspense>
+        </Container>
+      </ThemeProvider>
+    </BrowserRouter>
+  )
+}
+
+export default App
