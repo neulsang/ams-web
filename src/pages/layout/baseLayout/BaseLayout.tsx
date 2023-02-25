@@ -12,7 +12,14 @@ const BaseLayout = () => {
       <Grid item xs={12}>
         {isAuth ? <BaseLayoutHeader /> : <UnAuthHeader />}
       </Grid>
-      <Grid item xs={12}>
+      <Grid
+        item
+        xs={12}
+        p={{
+          sx: 0,
+          md: 2,
+        }}
+      >
         <Outlet />
       </Grid>
       <Grid item xs={12}>

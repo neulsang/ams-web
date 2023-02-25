@@ -1,4 +1,6 @@
 import React, { Suspense } from 'react'
+import { koKR as pickersKoKR } from '@mui/x-date-pickers'
+import { koKR } from '@mui/x-data-grid'
 import Container from '@mui/material/Container'
 
 import { createTheme, Grid, ThemeProvider, useTheme } from '@mui/material'
@@ -35,18 +37,21 @@ const Loader = () => {
 }
 
 function App() {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: yellow[500],
-        light: yellow[400],
-        dark: yellow[600],
-      },
-      secondary: {
-        main: grey[600],
+  const theme = createTheme(
+    {
+      palette: {
+        primary: {
+          main: yellow[500],
+          light: yellow[400],
+          dark: yellow[600],
+        },
+        secondary: {
+          main: grey[600],
+        },
       },
     },
-  })
+    koKR,
+  )
 
   return (
     <BrowserRouter>

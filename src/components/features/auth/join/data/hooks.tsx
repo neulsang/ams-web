@@ -5,13 +5,14 @@ import schema from './schema'
 import dayjs from 'dayjs'
 import { axiosClient } from '@libs/api/base'
 import { GENDER_RADIO_DATAS, QNA_QUESTION_DATAS } from './constants'
+import { IJoinForm } from './interface'
 
 const useJoinForms = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IJoinForm>({
     defaultValues: {
       id: '',
       password: '',
@@ -25,7 +26,7 @@ const useJoinForms = () => {
     },
     resolver: yupResolver(schema),
   })
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: IJoinForm) => {
     const memberJoinData = {
       birthDate: {
         day: data.birthDate.getDate(),
