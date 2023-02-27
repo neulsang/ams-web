@@ -25,7 +25,7 @@ const useJoinForms = () => {
     },
     resolver: yupResolver(schema),
   })
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     const memberJoinData = {
       birthDate: {
         day: data.birthDate.getDate(),
