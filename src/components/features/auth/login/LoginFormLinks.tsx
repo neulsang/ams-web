@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material'
 import React from 'react'
-import ROTUE_PATHS from 'src/utils/constants/routerPaths'
+import ROTUE_PATHS from '@libs/constants/routerPaths'
 
 import { Link } from 'react-router-dom'
 const LoginButtonLinks = () => {

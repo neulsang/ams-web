@@ -1,16 +1,19 @@
 import React, { Suspense } from 'react'
 import Container from '@mui/material/Container'
 
-import { createTheme, Grid, ThemeProvider, Typography, useTheme } from '@mui/material'
+import { createTheme, Grid, ThemeProvider, useTheme } from '@mui/material'
 import { grey, yellow } from '@mui/material/colors'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import ROTUE_PATHS from './utils/constants/routerPaths'
+import ROTUE_PATHS from './libs/constants/routerPaths'
 import { ClimbingBoxLoader } from 'react-spinners'
-import BaseLayout from '@pages/auth/layout/baseLayout/BaseLayout'
+import BaseLayout from '@pages/layout/baseLayout/BaseLayout'
 
 // auth
 const LoginPage = React.lazy(() => import('@pages/auth/login/LoginPage'))
 const JoinPage = React.lazy(() => import('@pages/auth/join/JoinPage'))
+
+//account
+const AccountListPage = React.lazy(() => import('@pages/account/list/AccountListPage'))
 
 const Loader = () => {
   const theme = useTheme()
@@ -51,9 +54,11 @@ function App() {
         <Container maxWidth={false} disableGutters>
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />}></Route>
               <Route path='/' element={<BaseLayout />}>
-                <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />}></Route>
+                <Route index path='/' element={<LoginPage />} />
+                <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />} />
+                <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />} />
+                <Route path={ROTUE_PATHS.ACCOUNT_LIST_PAGE} element={<AccountListPage />} />
               </Route>
             </Routes>
           </Suspense>

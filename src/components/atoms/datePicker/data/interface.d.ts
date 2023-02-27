@@ -1,9 +1,7 @@
 import { Control, FieldValues } from 'react-hook-form'
 
-export type TextFieldHookFormProps = {
+export type DatePickerHookFormProps = {
   control: Control<any, any>
   name: string
   error?: FieldErrors
-  placeholder?: string
-  type?: string
 }
