@@ -55,7 +55,7 @@ function App() {
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path='/' element={<BaseLayout />}>
-                <Route index path='/' element={<LoginPage />} />
+                <Route index element={<LoginPage />} />
                 <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />} />
                 <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />} />
                 <Route path={ROTUE_PATHS.ACCOUNT_LIST_PAGE} element={<AccountListPage />} />
