@@ -1,4 +1,9 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+} from 'axios'
 import { ApiAxiosRequestConfig, TokenRefreshResponse } from '@libs/api/base/interface'
 
 class AxiosClient {
@@ -28,7 +33,7 @@ class AxiosClient {
     this.instance.interceptors.response.use(this.handleResponseSuccess, this.handleResponseError)
   }
 
-  private setReqInterceptors = (config: AxiosRequestConfig) => {
+  private setReqInterceptors = (config: InternalAxiosRequestConfig<any>) => {
     if (!config.url) throw new Error('AxiosRequestConfig url undefined')
 
     /*  const apiServerDomainList = [
