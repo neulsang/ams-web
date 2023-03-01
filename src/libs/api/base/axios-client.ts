@@ -5,6 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios'
 import { ApiAxiosRequestConfig, TokenRefreshResponse } from '@libs/api/base/interface'
+import { BASE_URLS } from './constants'
 
 class AxiosClient {
   public readonly instance: AxiosInstance
@@ -35,36 +36,11 @@ class AxiosClient {
 
   private setReqInterceptors = (config: InternalAxiosRequestConfig<any>) => {
     if (!config.url) throw new Error('AxiosRequestConfig url undefined')
-
-    /*  const apiServerDomainList = [
-      'community-service',
-      'biz-service',
-      'member-service',
-      'approval-service',
-      'attendance-service',
-      'common-service',
-      'external-service',
-    ]
-`
-    const splitUrl = config.url.split('/')
-    let isApiServerDomain = false
-    apiServerDomainList.forEach((domain) => {
-      splitUrl.forEach((url) => {
-        if (url === domain) {
-          isApiServerDomain = true
-        }
-      })
-    })
-
-    config.baseURL = isApiServerDomain
-      ? 'https://dev-api.weekly.day'
-      : import.meta.env.VITE_API_SERVER_URL */
-
     console.log('%c✔ %s => %s', 'color:green;font-weight:bold', config.url, config.baseURL)
 
-    const token = sessionStorage.getItem('token')
-    if (token && this.instance.defaults.headers.common.Authorization === undefined) {
-      this.attachTokenToRequest(config, token)
+    const accessToken = sessionStorage.getItem('access_token')
+    if (accessToken && this.instance.defaults.headers.common.Authorization === undefined) {
+      this.attachTokenToRequest(config, accessToken)
     }
 
     config.headers!.MenuId = 1
@@ -96,9 +72,9 @@ class AxiosClient {
       return new Promise<string | null>((resolve, reject) => {
         this.failedQueue.push({ resolve, reject })
       })
-        .then((token) => {
+        .then((accessToken) => {
           originalRequest.queued = true
-          this.attachTokenToRequest(originalRequest, token)
+          this.attachTokenToRequest(originalRequest, accessToken)
           return this.instance.request(originalRequest)
         })
         .catch((err) => {
@@ -109,8 +85,8 @@ class AxiosClient {
     originalRequest.retry = true
     this.isRefreshing = true
 
-    /* return new Promise((resolve, reject) => {
-      this.instance!.post<TokenRefreshResponse>('/biz-service/tokenRefresh')
+    return new Promise((resolve, reject) => {
+      this.instance!.post<TokenRefreshResponse>(BASE_URLS.TOKEN_REFRESH)
         .then((res) => {
           const { accessToken } = res.data
           this.setTokenData(accessToken)
@@ -125,7 +101,7 @@ class AxiosClient {
         .finally(() => {
           this.isRefreshing = false
         })
-    }) */
+    })
   }
 
   private processQueue = (error: AxiosError | null, token: string | null = null) => {
@@ -147,13 +123,13 @@ class AxiosClient {
     }
   }
 
-  private attachTokenToRequest(request: AxiosRequestConfig, token: string | null) {
-    request.headers!.Authorization = `Bearer access-token=${token}`
+  private attachTokenToRequest(request: AxiosRequestConfig, accessToken: string | null) {
+    request.headers!.Authorization = `Bearer ${accessToken}`
   }
 
-  private setTokenData(token: string = '') {
-    sessionStorage.setItem('token', token)
-    this.instance!.defaults.headers.common.Authorization = `Bearer access-token=${token}`
+  private setTokenData(accessToken: string = '') {
+    window.sessionStorage.setItem('access_token', accessToken)
+    this.instance!.defaults.headers.common.Authorization = `Bearer ${accessToken}`
   }
 }
 
