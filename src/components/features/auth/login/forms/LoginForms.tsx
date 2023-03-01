@@ -12,19 +12,20 @@ const LoginForms = () => {
       <Grid item className='w-full border-gray-300 px-3 sm:w-auto sm:border sm:p-20'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name='id'
+            name='email'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                error={!!errors.id}
-                helperText={errors.id?.message}
+                error={!!errors.email}
+                helperText={errors.email?.message}
                 autoFocus
                 fullWidth
                 placeholder='아이디를 입력하세요.'
                 inputProps={{
                   className: 'text-lg',
                 }}
+                type='email'
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
@@ -51,6 +52,7 @@ const LoginForms = () => {
                 inputProps={{
                   className: 'text-lg',
                 }}
+                type='password'
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
