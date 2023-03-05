@@ -1,3 +1,4 @@
+import React from 'react'
 import { Grid } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import BaseLayoutFooter from '../baseLayout/footer/BaseLayoutFooter'
@@ -13,7 +14,7 @@ const NonAuthLayout = () => {
       <Grid
         item
         xs={12}
-        p={{
+        px={{
           sx: 0,
           md: 2,
         }}

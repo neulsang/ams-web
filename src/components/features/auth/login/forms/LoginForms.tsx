@@ -71,10 +71,6 @@ const LoginForms = () => {
         </form>
 
         <LoginButtonLinks />
-
-        <Grid className='mt-10 text-center text-sm text-gray-400'>
-          Copyright © Neulsang Corp. All rights reserved.
-        </Grid>
       </Grid>
     </>
   )
