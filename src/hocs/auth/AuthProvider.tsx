@@ -17,7 +17,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       navigate(ROTUE_PATHS.ROOT)
     }
   }, [location])
-  return <>{isAuth ? { children } : <>error</>}</>
+
+  return <div>{children}</div>
 }
 
 export default AuthProvider

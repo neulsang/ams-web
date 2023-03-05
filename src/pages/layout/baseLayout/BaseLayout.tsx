@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 import AuthProvider from 'src/hocs/auth/AuthProvider'
 import BaseLayoutFooter from './footer/BaseLayoutFooter'
 import { BaseLayoutHeader } from './header/BaseLayoutHeader'
