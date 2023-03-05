@@ -13,6 +13,7 @@ import {
 import React from 'react'
 import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import { useUserServiceApi } from '@libs/api/userService'
 
 export type SortFilter = {
   sorts: {
@@ -85,9 +86,19 @@ const AccountListFilter = () => {
     name: 'sorts', // unique name for your Field Array
   })
 
+  const { getMyInfo } = useUserServiceApi()
+
   return (
     <div>
-      AccountListFilter
+      <div>
+        <button
+          onClick={() => {
+            const userInfo = getMyInfo()
+          }}
+        >
+          11111
+        </button>
+      </div>
       {fields.map((item, index) => {
         console.log(item)
         return (
@@ -105,8 +116,10 @@ const AccountListFilter = () => {
             <Grid item xs={2}>
               <SelectHookForm
                 control={control}
+                dsfsd
                 name={`sorts.${index}.columnName`}
                 selectDatas={COLUMN_NAME_SELECT}
+                size='small'
               />
             </Grid>
 
@@ -115,11 +128,12 @@ const AccountListFilter = () => {
                 control={control}
                 name={`sorts.${index}.condition`}
                 selectDatas={CONDITION_SELECT}
+                size='small'
               />
             </Grid>
 
             <Grid item xs={3}>
-              <TextFieldHookForm control={control} name={`sorts.${index}.data`} />
+              <TextFieldHookForm control={control} name={`sorts.${index}.data`} size='small' />
             </Grid>
 
             <Grid item xs='auto' my='auto'>
