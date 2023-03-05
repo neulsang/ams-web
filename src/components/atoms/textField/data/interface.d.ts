@@ -6,4 +6,5 @@ export type TextFieldHookFormProps = {
   error?: FieldErrors
   placeholder?: string
   type?: string
+  size?: 'small' | 'medium'
 }

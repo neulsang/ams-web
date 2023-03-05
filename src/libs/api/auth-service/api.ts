@@ -31,8 +31,18 @@ const useAuthServiceApi = () => {
       })
   }
 
+  const logout = async () => {
+    return instance.get(URLS.LOGOUT).then((res) => {
+      window.sessionStorage.removeItem('access_token')
+      window.sessionStorage.removeItem('refresh_token')
+      window.sessionStorage.removeItem('userInfo')
+      return res.data
+    })
+  }
+
   authServiceApi = {
     login,
+    logout,
   }
 
   return authServiceApi

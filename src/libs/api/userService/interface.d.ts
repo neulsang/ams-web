@@ -14,5 +14,5 @@ export type IUser = {
 }
 
 export interface UserServiceApi {
-  login: () => Promise<IUser>
+  getMyInfo: () => Promise<IUser>
 }

@@ -10,4 +10,5 @@ export type LoginResponseData = {
 
 export interface AuthServiceApi {
   login: (loginData: LoginRequestData) => Promise<LoginResponseData>
+  logout: () => Promise<any>
 }

@@ -9,6 +9,7 @@ const TextFieldHookForm = ({
   error,
   placeholder,
   type = 'text',
+  size = 'medium',
 }: TextFieldHookFormProps) => {
   return (
     <Controller
@@ -16,15 +17,13 @@ const TextFieldHookForm = ({
       control={control}
       render={({ field }) => (
         <TextField
+          size={size}
           type={type}
           {...field}
           error={!!error}
           helperText={error?.message}
           fullWidth
           placeholder={placeholder}
-          inputProps={{
-            className: 'text-lg',
-          }}
           variant='outlined'
         />
       )}
