@@ -5,4 +5,5 @@ export type SelectHookFormProps = {
   name: string
   error?: FieldErrors
   selectDatas: IFormControlLabel[]
+  size?: 'small' | 'medium'
 }

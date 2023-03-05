@@ -14,14 +14,14 @@ const useUserServiceApi = () => {
     return userServiceApi
   }
 
-  const login = async () => {
+  const getMyInfo = async () => {
     return instance.get(URLS.ME).then((res) => {
       return res.data
     })
   }
 
   userServiceApi = {
-    login,
+    getMyInfo,
   }
 
   return userServiceApi

@@ -9,16 +9,8 @@ import { Link } from 'react-router-dom'
 import ROTUE_PATHS from '@libs/constants/routerPaths'
 
 export const BaseLayoutHeader = () => {
-  const {
-    isShowDrawer,
-    setIsShowDrawer,
-    menuId,
-    handleProfileMenuOpen,
-    mobileMenuId,
-    handleMobileMenuOpen,
-    renderMobileMenu,
-    renderMenu,
-  } = useBaseLayoutHeader()
+  const { isShowDrawer, setIsShowDrawer, menuId, handleProfileMenuOpen, renderMenu } =
+    useBaseLayoutHeader()
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -39,7 +31,7 @@ export const BaseLayoutHeader = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box>
             <IconButton
               size='large'
               edge='end'
@@ -52,23 +44,11 @@ export const BaseLayoutHeader = () => {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size='large'
-              aria-label='show more'
-              aria-controls={mobileMenuId}
-              aria-haspopup='true'
-              onClick={handleMobileMenuOpen}
-              color='inherit'
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
         </Toolbar>
       </AppBar>
 
       <BaseLayoutDrawer open={isShowDrawer} setOpen={setIsShowDrawer} />
-      {renderMobileMenu}
+
       {renderMenu}
     </Box>
   )

@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ROTUE_PATHS from './libs/constants/routerPaths'
 import { ClimbingBoxLoader } from 'react-spinners'
 import BaseLayout from '@pages/layout/baseLayout/BaseLayout'
+import NonAuthLayout from '@pages/layout/nonAuthLayout/NonAuthLayout'
 
 // auth
 const LoginPage = React.lazy(() => import('@pages/auth/login/LoginPage'))
@@ -59,10 +60,13 @@ function App() {
         <Container maxWidth={false} disableGutters>
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route path={ROTUE_PATHS.ROOT} element={<BaseLayout />}>
+              <Route path={ROTUE_PATHS.ROOT} element={<NonAuthLayout />}>
                 <Route index element={<LoginPage />} />
                 <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />} />
                 <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />} />
+              </Route>
+
+              <Route path={ROTUE_PATHS.ROOT} element={<BaseLayout />}>
                 <Route path={ROTUE_PATHS.ACCOUNT_LIST_PAGE} element={<AccountListPage />} />
               </Route>
             </Routes>

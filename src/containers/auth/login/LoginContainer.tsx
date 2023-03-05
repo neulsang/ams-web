@@ -14,7 +14,7 @@ function LoginContainer() {
         justifyContent='center'
         alignItems='center'
         // TODO: 어느 페이지에 적용해야할까요? 화면에 레이아웃이 스크롤이 없고 간단한..곳들
-        sx={{ height: '100dvh' }}
+        sx={{ height: 'calc( 100dvh - 77px)' }}
       >
         <LoginFormTitle />
         <LoginForm />

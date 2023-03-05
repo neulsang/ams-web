@@ -18,7 +18,7 @@ const LoginForms = () => {
               <TextField
                 {...field}
                 error={!!errors.email}
-                helperText={errors.email?.message}
+                helperText={errors.email?.message as string}
                 autoFocus
                 fullWidth
                 placeholder='아이디를 입력하세요.'
@@ -45,7 +45,7 @@ const LoginForms = () => {
               <TextField
                 {...field}
                 error={!!errors.password}
-                helperText={errors.password?.message}
+                helperText={errors.password?.message as string}
                 fullWidth
                 placeholder='비밀번호를 입력하세요.'
                 className='my-6'

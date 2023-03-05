@@ -3,7 +3,7 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import ROTUE_PATHS from '@libs/constants/routerPaths'
 
-export const UnAuthHeader = () => {
+export const NonAuthHeader = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>

@@ -1,60 +1,117 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 import { Grid, Pagination, Stack } from '@mui/material'
+import { axiosClient } from '@libs/api/base'
+
+export type TablePagination = {
+  page: number
+  limit: number
+}
+
+export type Account = {
+  uuid?: string
+  no?: number
+  groupName: string
+  accountName: string
+  tel: string
+  ceoName: string
+}
 
 const AccountListTable = () => {
+  const [rows, setRows] = useState<Account[]>([])
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
     {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 90,
+      field: 'no',
+      headerName: '번호',
+      sortable: false,
+      flex: 1,
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: 'fullName',
-      headerName: 'Full name',
+      field: 'groupName',
+      headerName: '그룹명',
+      sortable: false,
+      flex: 1,
+      headerAlign: 'center',
+      align: 'center',
+      minWidth: 100,
+    },
+    {
+      field: 'accountName',
+      headerName: '거레처명',
+      sortable: false,
+      flex: 1,
+      headerAlign: 'center',
+      align: 'center',
+      minWidth: 100,
+    },
+    {
+      field: 'tel',
+      headerName: '전화번호',
+      sortable: false,
+      width: 120,
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'ceoName',
+      headerName: '대표자명',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
-      width: 160,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+      width: 70,
+      headerAlign: 'center',
+      align: 'center',
+      /*   valueGetter: (params: GridValueGetterParams) =>
+        `${params.row.firstName || ''} ${params.row.lastName || ''}`, */
     },
   ]
 
-  const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  ]
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  const [totalPage, setTotalPage] = useState(13)
+
+  useEffect(() => {
+    const fetchAccoutList = async ({ page, limit }: TablePagination) => {
+      const resAccount = await axiosClient.instance.get<Account[]>(
+        `http://devhong.asuscomm.com:13000/accounts?page=${page}&pageSize=${pageSize}`,
+      )
+      setRows(resAccount.data)
+    }
+    fetchAccoutList({ page: 1, limit: 10 })
+  }, [page, pageSize])
 
   return (
     <Grid container alignItems='center' justifyContent='center' rowGap={2}>
       <Grid item xs={12}>
         <DataGrid
+          getRowId={(row) => row.uuid}
           rows={rows}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
           checkboxSelection
+          pageSize={pageSize}
+          onPageSizeChange={(_pageSize) => setPageSize(_pageSize)}
+          rowsPerPageOptions={[10, 25, 50]}
           autoHeight
           sx={{
-            '.MuiTablePagination-toolbar': {
+            '.MuiTablePagination-actions': {
               display: 'none',
+            },
+            '.MuiTablePagination-displayedRows': {
+              paddingRight: '10px',
             },
           }}
         />
       </Grid>
       <Grid item xs='auto'>
-        <Pagination count={10} />
+        <Pagination
+          page={page}
+          count={totalPage}
+          siblingCount={1}
+          boundaryCount={1}
+          color='primary'
+          onChange={(event: React.ChangeEvent<unknown>, page: number) => setPage(page)}
+        />
       </Grid>
     </Grid>
   )
