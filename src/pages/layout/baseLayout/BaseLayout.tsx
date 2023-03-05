@@ -1,20 +1,13 @@
 import { Grid } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import AuthProvider from 'src/hocs/auth/AuthProvider'
 import BaseLayoutFooter from './footer/BaseLayoutFooter'
 import { BaseLayoutHeader } from './header/BaseLayoutHeader'
 
 const BaseLayout = () => {
-  const location = useLocation()
-  const [isAuth, setIsAuth] = useState(false)
-
-  useEffect(() => {
-    const userInfo = window.sessionStorage.getItem('userInfo') || ''
-    setIsAuth(!!userInfo)
-  }, [location])
-
   return (
-    isAuth && (
+    <AuthProvider>
       <Grid container>
         <Grid item xs={12}>
           <BaseLayoutHeader />
@@ -33,7 +26,7 @@ const BaseLayout = () => {
           <BaseLayoutFooter />
         </Grid>
       </Grid>
-    )
+    </AuthProvider>
   )
 }
 
