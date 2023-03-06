@@ -18,7 +18,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }, [location])
 
-  return <div>{children}</div>
+  return isAuth ? <>{children}</> : <></>
 }
 
 export default AuthProvider

@@ -1,7 +1,6 @@
 import { useAuthServiceApi } from '@libs/api/auth-service'
 import ROTUE_PATHS from '@libs/constants/routerPaths'
-import { AccountCircle } from '@mui/icons-material'
-import { IconButton, Menu, MenuItem } from '@mui/material'
+import { Menu, MenuItem } from '@mui/material'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 

@@ -1,11 +1,10 @@
-import react from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import schema from './schema'
 import dayjs from 'dayjs'
-import { axiosClient } from '@libs/api/base'
 import { GENDER_RADIO_DATAS, QNA_QUESTION_DATAS } from './constants'
 import { IJoinForm } from './interface'
+import { useAuthServiceApi } from '@libs/api/auth-service'
 
 const useJoinForms = () => {
   const {
@@ -14,57 +13,31 @@ const useJoinForms = () => {
     formState: { errors },
   } = useForm<IJoinForm>({
     defaultValues: {
-      id: '',
       password: '',
       passwordCheck: '',
       name: '',
       email: '',
-      birthDate: dayjs(new Date()).format('YYYY-MM-DD'),
+      birth_date: dayjs(new Date()).format('YYYY-MM-DD'),
       gender: GENDER_RADIO_DATAS[0].value,
-      qnaQuestion: QNA_QUESTION_DATAS[0].value,
-      qnaAnswer: '',
+      qna: {
+        question: QNA_QUESTION_DATAS[0].value,
+        answer: '',
+      },
     },
     resolver: yupResolver(schema),
   })
-  const onSubmit = async (data: IJoinForm) => {
-    const memberJoinData = {
-      birthDate: {
-        day: data.birthDate.getDate(),
-        month: data.birthDate.getMonth() + 1,
-        year: data.birthDate.getFullYear(),
-      },
-      email: data.email,
-      gender: data.gender,
-      id: data.id,
-      name: data.name,
-      password: data.password,
-      qna: {
-        answer: data.qnaQuestion,
-        question: data.qnaAnswer,
-      },
+
+  const { register } = useAuthServiceApi()
+
+  const onSubmit = async (formData: IJoinForm) => {
+    console.log(formData)
+    const joinFormData = {
+      ...formData,
+      birth_date: dayjs(formData.birth_date).format('YYYY-MM-DD'),
     }
-    console.log('memberJoinData', memberJoinData)
 
-    const res = await axiosClient.instance.post('/v1/users', memberJoinData)
-    console.log(res)
-
-    /*  const memberJoinData = {
-      birthDate: {
-        day: 29,
-        month: 7,
-        year: 1990,
-      },
-      email: 'dgkwon90@naver.com',
-      gender: 'male',
-      id: 'dgkwon90',
-      name: '권대근',
-      password: 'test1234',
-      qna: {
-        answer: 'blue',
-        question: 'What is my favorite color?',
-      },
-    } */
-    console.log(data)
+    const joinResponse = await register(joinFormData)
+    console.log(joinResponse)
   }
 
   return {

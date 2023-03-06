@@ -1,11 +1,16 @@
+export type PasswordQna = {
+  answer: string
+  question: string
+}
+
 export type IJoinForm = {
-  id: string
+  id?: string
   password: string
   passwordCheck?: string
   name: string
   email: string
-  birthDate: Dayjs
+  birth_date: Dayjs
   gender: string
-  qnaQuestion: string
-  qnaAnswer: string
+  qna: PasswordQna
+  nick_name: string
 }

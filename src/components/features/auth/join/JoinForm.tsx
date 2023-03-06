@@ -1,5 +1,5 @@
 import TextFieldHookForm from '@components/atoms/textField/TextFieldHookForm'
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import React from 'react'
 import { GENDER_RADIO_DATAS, QNA_QUESTION_DATAS, useJoinForms } from './data'
 import DatePickerHookFormProps from '@atoms/datePicker/datePickerHookForm'
@@ -23,14 +23,15 @@ const JoinForm = () => {
           <Grid item xs={12} md={6.5}>
             <Grid container alignItems='center' justifyContent='center' px={3} py={1.5}>
               <Grid item xs={4.5} sm={2.5} md={3}>
-                아이디
+                이메일
               </Grid>
               <Grid item xs>
                 <TextFieldHookForm
                   control={control}
-                  name='id'
-                  error={errors.id}
-                  placeholder='아이디를 입력하세요.'
+                  name='email'
+                  error={errors.email}
+                  placeholder='이메일을 입력하세요.'
+                  type='email'
                 />
               </Grid>
             </Grid>
@@ -89,15 +90,14 @@ const JoinForm = () => {
           <Grid item xs={12} md={6.5}>
             <Grid container alignItems='center' justifyContent='center' px={3} py={1.5}>
               <Grid item xs={4.5} sm={2.5} md={3}>
-                이메일
+                닉네임
               </Grid>
               <Grid item xs>
                 <TextFieldHookForm
                   control={control}
-                  name='email'
-                  error={errors.email}
-                  placeholder='이메일을 입력하세요.'
-                  type='email'
+                  name='nick_name'
+                  error={errors.nick_name}
+                  placeholder='닉네임을 입력하세요.'
                 />
               </Grid>
             </Grid>
@@ -111,8 +111,8 @@ const JoinForm = () => {
               <Grid item xs>
                 <DatePickerHookFormProps
                   control={control}
-                  name='birthDate'
-                  error={errors.birthDate}
+                  name='birth_date'
+                  error={errors.birth_date}
                 />
               </Grid>
             </Grid>
@@ -138,8 +138,8 @@ const JoinForm = () => {
               <Grid item xs>
                 <SelectHookForm
                   control={control}
-                  name='qnaQuestion'
-                  error={errors.qnaQuestion}
+                  name='qna.question'
+                  error={errors.qna?.question}
                   selectDatas={QNA_QUESTION_DATAS}
                 />
               </Grid>
@@ -155,8 +155,8 @@ const JoinForm = () => {
               <Grid item xs>
                 <TextFieldHookForm
                   control={control}
-                  name='qnaAnswer'
-                  error={errors.qnaAnswer}
+                  name='qna.answer'
+                  error={errors.qna?.answer}
                   placeholder='비밀번호 찾기 답변을 입력하세요.'
                 />
               </Grid>

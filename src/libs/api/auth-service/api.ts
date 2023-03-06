@@ -1,3 +1,4 @@
+import { IJoinForm } from '@components/features/auth/join/data'
 import { axiosClient } from '@libs/api/base'
 import { AuthServiceApi, LoginRequestData } from './interface'
 
@@ -8,6 +9,7 @@ const { instance } = axiosClient
 const URLS = {
   LOGIN: '/v1/auth/login',
   LOGOUT: '/v1/auth/logout',
+  REGISTER: 'v1/auth/register',
 }
 
 const useAuthServiceApi = () => {
@@ -40,9 +42,14 @@ const useAuthServiceApi = () => {
     })
   }
 
+  const register = async (joinFormData: IJoinForm) => {
+    return instance.post(URLS.REGISTER, joinFormData).then((res) => res.data)
+  }
+
   authServiceApi = {
     login,
     logout,
+    register,
   }
 
   return authServiceApi
