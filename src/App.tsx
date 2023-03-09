@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react'
-import { koKR as pickersKoKR } from '@mui/x-date-pickers'
 import { koKR } from '@mui/x-data-grid'
 import Container from '@mui/material/Container'
 
@@ -10,10 +9,14 @@ import ROTUE_PATHS from './libs/constants/routerPaths'
 import { ClimbingBoxLoader } from 'react-spinners'
 import BaseLayout from '@pages/layout/baseLayout/BaseLayout'
 import NonAuthLayout from '@pages/layout/nonAuthLayout/NonAuthLayout'
+import FindAccountPage from '@pages/auth/findAccountInfo/FindAccountInfoPage'
 
 // auth
 const LoginPage = React.lazy(() => import('@pages/auth/login/LoginPage'))
 const JoinPage = React.lazy(() => import('@pages/auth/join/JoinPage'))
+const FindAccountInfoPage = React.lazy(
+  () => import('@pages/auth/FindAccountInfo/FindAccountInfoPage'),
+)
 
 //account
 const AccountListPage = React.lazy(() => import('@pages/account/list/AccountListPage'))
@@ -64,6 +67,10 @@ function App() {
                 <Route index element={<LoginPage />} />
                 <Route path={ROTUE_PATHS.LOGIN_PAGE} element={<LoginPage />} />
                 <Route path={ROTUE_PATHS.JOIN_PAGE} element={<JoinPage />} />
+                <Route
+                  path={ROTUE_PATHS.FIND_ACCOUNT_INFO_PAGE}
+                  element={<FindAccountInfoPage />}
+                />
               </Route>
 
               <Route path={ROTUE_PATHS.ROOT} element={<BaseLayout />}>

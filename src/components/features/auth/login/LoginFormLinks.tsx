@@ -13,7 +13,7 @@ const LoginButtonLinks = () => {
           </Link>
         </Grid>
         <Grid item>
-          <Link to='#' color='secondary'>
+          <Link to={ROTUE_PATHS.FIND_ACCOUNT_INFO_PAGE} color='secondary'>
             아이디 찾기
           </Link>
           <Typography color='secondary' component='span'>
