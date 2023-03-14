@@ -1,21 +1,10 @@
-import SelectHookForm from '@components/atoms/select/TextFieldHookForm'
-import TextFieldHookForm from '@components/atoms/textField/TextFieldHookForm'
-import {
-  Grid,
-  Icon,
-  IconButton,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
-import React from 'react'
-import { useFieldArray, useForm, Controller } from 'react-hook-form'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import React, { useEffect, useState } from 'react'
 import { useUserServiceApi } from '@libs/api/userService'
-
-export type SortFilter = {
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
+import { useTheme } from '@mui/material'
+import { ActionMeta, MultiValue } from 'react-select/dist/declarations/src'
+export type AccountListFilter = {
   sorts: {
     no: number
     columnName: string
@@ -24,126 +13,75 @@ export type SortFilter = {
   }[]
 }
 
-const COLUMN_NAME_SELECT = [
-  {
-    id: 1,
-    value: 'groupName',
-    label: '그룹명',
-  },
-  {
-    id: 2,
-    value: 'accountName',
-    label: '거레처명',
-  },
+export interface ColourOption {
+  readonly value: string
+  readonly label: string
+  readonly color: string
+  readonly isFixed?: boolean
+  readonly isDisabled?: boolean
+}
 
-  {
-    id: 3,
-    value: 'tel',
-    label: '전화번호',
-  },
-  {
-    id: 4,
-    value: 'ceoName',
-    label: '대표자',
-  },
+export const colourOptions: readonly ColourOption[] = [
+  { value: 'all', label: '전체', color: '#5243AA' },
+  { value: '안동_풍산읍', label: '안동_풍산읍', color: '#5243AA' },
+  { value: '안동_와룡면', label: '안동_와룡면', color: '#FF8B00' },
+  { value: '안동_예안면', label: '안동_예안면', color: '#FFC400' },
+  { value: '구미_A동', label: '구미_A동', color: '#36B37E' },
+  { value: '구미_동', label: '구미_동', color: '#00875A' },
+  { value: '예천', label: '예천', color: '#253858' },
+  { value: '서산', label: '서산', color: '#666666' },
 ]
-
-const CONDITION_SELECT = [
-  {
-    id: 1,
-    value: 'equal',
-    label: '동일',
-  },
-  {
-    id: 2,
-    value: 'include',
-    label: '포함',
-  },
-
-  {
-    id: 3,
-    value: 'exclude',
-    label: '미포함',
-  },
-]
+const animatedComponents = makeAnimated()
 
 const AccountListFilter = () => {
-  const { control, register } = useForm<SortFilter>({
-    defaultValues: {
-      sorts: [
-        {
-          no: 1,
-          columnName: 'groupName',
-          condition: 'equal',
-          data: '안동',
-        },
-      ],
-    },
-  })
-
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray<SortFilter>({
-    control, // control props comes from useForm (optional: if you are using FormContext)
-    name: 'sorts', // unique name for your Field Array
-  })
-
   const { getMyInfo } = useUserServiceApi()
+  const theme = useTheme()
+  const [value, setValue] = useState<MultiValue<ColourOption>>()
+
+  useEffect(() => {
+    console.log(value)
+  }, [value])
 
   return (
     <div>
-      <div>
-        <button
-          onClick={() => {
-            const userInfo = getMyInfo()
-          }}
-        >
-          11111
-        </button>
-      </div>
-      {fields.map((item, index) => {
-        console.log(item)
-        return (
-          <Grid
-            container
-            key={item.id}
-            alignItems='cnnter'
-            justifyContent='center'
-            columnSpacing={2}
-          >
-            <Grid item xs='auto' my='auto'>
-              <Typography>{index + 1}</Typography>
-            </Grid>
+      <button
+        onClick={() => {
+          const userInfo = getMyInfo()
+        }}
+      >
+        11111
+      </button>
 
-            <Grid item xs={2}>
-              <SelectHookForm
-                control={control}
-                dsfsd
-                name={`sorts.${index}.columnName`}
-                selectDatas={COLUMN_NAME_SELECT}
-                size='small'
-              />
-            </Grid>
-
-            <Grid item xs={2}>
-              <SelectHookForm
-                control={control}
-                name={`sorts.${index}.condition`}
-                selectDatas={CONDITION_SELECT}
-                size='small'
-              />
-            </Grid>
-
-            <Grid item xs={3}>
-              <TextFieldHookForm control={control} name={`sorts.${index}.data`} size='small' />
-            </Grid>
-
-            <Grid item xs='auto' my='auto'>
-              <IconButton>
-                <AddCircleOutlineIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-        )
-      })}
+      <Select
+        blurInputOnSelect={false}
+        closeMenuOnSelect={false}
+        components={animatedComponents}
+        onChange={(newValue: MultiValue<ColourOption>, actionMeta: ActionMeta<ColourOption>) => {
+          newValue.find((option) => option.value === 'all')
+            ? setValue(colourOptions.slice(1))
+            : setValue(newValue)
+        }}
+        /*  onChange={(newValue: MultiValue<ColourOption>, actionMeta: ActionMeta<unknown>) =>
+          setValue(newValue)
+        } */
+        value={value}
+        isMulti
+        options={colourOptions}
+        theme={(selectTheme) => ({
+          ...selectTheme,
+          borderRadius: 0,
+          colors: {
+            ...selectTheme.colors,
+            primary: theme.palette.primary.main,
+          },
+        })}
+        styles={{
+          multiValue: (base, props) => ({
+            ...base,
+            background: theme.palette.primary.light,
+          }),
+        }}
+      />
     </div>
   )
 }
