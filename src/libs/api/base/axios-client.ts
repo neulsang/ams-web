@@ -6,6 +6,7 @@ import axios, {
 } from 'axios'
 import { ApiAxiosRequestConfig, TokenRefreshResponse } from '@libs/api/base/interface'
 import { BASE_URLS } from './constants'
+import { toast } from 'react-toastify'
 
 class AxiosClient {
   public readonly instance: AxiosInstance
@@ -43,8 +44,6 @@ class AxiosClient {
       this.attachTokenToRequest(config, accessToken)
     }
 
-    config.headers!.MenuId = 1
-
     return config
   }
 
@@ -54,6 +53,22 @@ class AxiosClient {
   }
 
   private handleResponseError = (error: AxiosError<any, any>) => {
+    const response = error.response
+    console.log(error)
+
+    if (response?.status !== 401 && response?.data?.message) {
+      toast.error(response?.data?.message, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+
     // TODO: Read the header, if have custom header => Specific your error handling
 
     // Check if Toast-Message is true

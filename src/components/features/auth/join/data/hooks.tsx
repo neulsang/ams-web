@@ -5,6 +5,8 @@ import dayjs from 'dayjs'
 import { GENDER_RADIO_DATAS, QNA_QUESTION_DATAS } from './constants'
 import { IJoinForm } from './interface'
 import { useAuthServiceApi } from '@libs/api/auth-service'
+import { useNavigate } from 'react-router-dom'
+import ROTUE_PATHS from '@libs/constants/routerPaths'
 
 const useJoinForms = () => {
   const {
@@ -17,27 +19,33 @@ const useJoinForms = () => {
       passwordCheck: '',
       name: '',
       email: '',
-      birth_date: dayjs(new Date()).format('YYYY-MM-DD'),
+      phoneNumber: '',
+      birthDate: dayjs(new Date()).format('YYYY-MM-DD'),
       gender: GENDER_RADIO_DATAS[0].value,
       qna: {
         question: QNA_QUESTION_DATAS[0].value,
         answer: '',
       },
+      nickName: '',
     },
     resolver: yupResolver(schema),
   })
 
   const { register } = useAuthServiceApi()
+  const navigate = useNavigate()
 
   const onSubmit = async (formData: IJoinForm) => {
-    console.log(formData)
     const joinFormData = {
       ...formData,
-      birth_date: dayjs(formData.birth_date).format('YYYY-MM-DD'),
+      birthDate: dayjs(formData.birthDate).format('YYYY-MM-DD'),
     }
 
-    const joinResponse = await register(joinFormData)
-    console.log(joinResponse)
+    try {
+      await register(joinFormData)
+      navigate(ROTUE_PATHS.ROOT)
+    } catch (e) {
+      console.log('error', e)
+    }
   }
 
   return {

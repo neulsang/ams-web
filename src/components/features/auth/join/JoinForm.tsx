@@ -90,13 +90,29 @@ const JoinForm = () => {
           <Grid item xs={12} md={6.5}>
             <Grid container alignItems='center' justifyContent='center' px={3} py={1.5}>
               <Grid item xs={4.5} sm={2.5} md={3}>
+                전화번호
+              </Grid>
+              <Grid item xs>
+                <TextFieldHookForm
+                  control={control}
+                  name='phoneNumber'
+                  error={errors.phoneNumber}
+                  placeholder='-없이 숫자만 입력하세요.'
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12} md={6.5}>
+            <Grid container alignItems='center' justifyContent='center' px={3} py={1.5}>
+              <Grid item xs={4.5} sm={2.5} md={3}>
                 닉네임
               </Grid>
               <Grid item xs>
                 <TextFieldHookForm
                   control={control}
-                  name='nick_name'
-                  error={errors.nick_name}
+                  name='nickName'
+                  error={errors.nickName}
                   placeholder='닉네임을 입력하세요.'
                 />
               </Grid>
@@ -111,8 +127,8 @@ const JoinForm = () => {
               <Grid item xs>
                 <DatePickerHookFormProps
                   control={control}
-                  name='birth_date'
-                  error={errors.birth_date}
+                  name='birthDate'
+                  error={errors.birthDate}
                 />
               </Grid>
             </Grid>

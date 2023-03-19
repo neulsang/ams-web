@@ -1,15 +1,6 @@
 import SelectHookForm from '@components/atoms/select/TextFieldHookForm'
 import TextFieldHookForm from '@components/atoms/textField/TextFieldHookForm'
-import {
-  Grid,
-  Icon,
-  IconButton,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Grid, IconButton, Typography } from '@mui/material'
 import React from 'react'
 import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
@@ -116,7 +107,6 @@ const AccountListFilter = () => {
             <Grid item xs={2}>
               <SelectHookForm
                 control={control}
-                dsfsd
                 name={`sorts.${index}.columnName`}
                 selectDatas={COLUMN_NAME_SELECT}
                 size='small'

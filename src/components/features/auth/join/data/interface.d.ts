@@ -9,8 +9,9 @@ export type IJoinForm = {
   passwordCheck?: string
   name: string
   email: string
-  birth_date: Dayjs
+  birthDate: Dayjs
   gender: string
   qna: PasswordQna
-  nick_name: string
+  nickName: string
+  phoneNumber: string
 }

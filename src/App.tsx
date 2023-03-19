@@ -10,6 +10,8 @@ import ROTUE_PATHS from './libs/constants/routerPaths'
 import { ClimbingBoxLoader } from 'react-spinners'
 import BaseLayout from '@pages/layout/baseLayout/BaseLayout'
 import NonAuthLayout from '@pages/layout/nonAuthLayout/NonAuthLayout'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // auth
 const LoginPage = React.lazy(() => import('@pages/auth/login/LoginPage'))
@@ -71,6 +73,7 @@ function App() {
               </Route>
             </Routes>
           </Suspense>
+          <ToastContainer />
         </Container>
       </ThemeProvider>
     </BrowserRouter>
